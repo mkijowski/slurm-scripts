@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # This script will kill any user processes on a node when the last
 # SLURM job there ends. For example, if a user directly logs into
