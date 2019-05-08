@@ -52,6 +52,7 @@ do
   else
 	  echo "No processes found"
   fi
+done
 fi
 
 #
