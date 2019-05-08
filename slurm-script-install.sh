@@ -25,5 +25,10 @@ fi
 mkdir -p $SLURMSCRIPTDIR
 
 ln -sfb $GITDIR/scripts/epilog.sh $SLURMSCRIPTDIR/epilog.sh
+ln -sfb $GITDIR/scripts/deviceQuery $SLURMSCRIPTDIR/deviceQuery
 ln -sfb $GITDIR/scripts/taskprolog.sh $SLURMSCRIPTDIR/taskprolog.sh 
+ln -sfb $GITDIR/scripts/slurm-startup.sh $SLURMSCRIPTDIR/slurm-startup.sh 
+
+echo "
+@reboot		root	$SLURMSCRIPTDIR/slurm-startup.sh" >> /etc/crontab
 
