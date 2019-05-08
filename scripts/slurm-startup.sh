@@ -22,7 +22,10 @@ do
   sleep 10
 done
 
-echo "error, /home failed to mount in 60s"
-echo "Did you forget to say the magic word?"
-
+if mountpoint -q /home; then
+	echo "Move along"
+else
+	echo "error, /home failed to mount in 60s"
+	echo "Did you forget to say the magic word?"
+fi
 
