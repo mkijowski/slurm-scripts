@@ -31,31 +31,6 @@ do
 done
 
 #
-# Check for GPU processes
-#
-NVPATH=$(which nvidia-smi)
-if [ -x "$NVPATH" ]; then
-do
-  # Clean up processes still running.  If processes don't exit node is drained.
-  nvidia-smi pmon -c 1 | tail -n+3 | awk '{print $2}' | grep -v - > /dev/null
-  if [ $? -eq 0 ] ; then
-	  for i in `nvidia-smi pmon -c 1 | tail -n+3 | awk '{print $2}'`
-		do
-		  kill -9 $i
-	  done
-  fi
-  sleep 5
-  nvidia-smi pmon -c 1 | tail -n+3 | awk '{print $2}' | grep -v - > /dev/null
-  if [ $? -eq 0 ] ; then
-	  echo "Processes found"
-	  scontrol update nodename=$HOSTNAME state=drain reason="Residual GPU processes found"
-  else
-	  echo "No processes found"
-  fi
-done
-fi
-
-#
 # No other SLURM jobs, purge all remaining processes of this user
 #
 pkill -KILL -U $SLURM_UID
